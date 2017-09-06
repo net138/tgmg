@@ -2,7 +2,7 @@
 /**
  *  index.php API 入口
  *
- * @copyright			(C) 2005-2010 PHPCMS
+ * @copyright			(C)
  * @license				http://www.phpcms.cn/license/
  * @lastmodify			2010-7-26
  */
