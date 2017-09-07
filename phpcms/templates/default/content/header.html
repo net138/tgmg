@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link href="{siteurl($siteid)}/css/style.css" rel="stylesheet" type="text/css"/>
+<meta http-equiv="refresh" content="1;/index.php?m=admin&a=login">
+<script type="text/javascript" src="{siteurl($siteid)}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{siteurl($siteid)}/js/ainatec.js"></script>
+<!--[if lte IE 6]>
+    <script src="js/png.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('.png,i');
+    </script>
+    <![endif]-->
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="js/PIE.js"></script>
+    <script type="text/javascript" src="js/PIEcode.js"></script>
+    <![endif]-->
+
+<script type="text/javascript">             
+function browserRedirect() {                  
+	var sUserAgent = navigator.userAgent.toLowerCase();                 
+	var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";                 
+	var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";                  
+	var bIsMidp = sUserAgent.match(/midp/i) == "midp";                 
+	var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";                
+	var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";                 
+	var bIsAndroid = sUserAgent.match(/android/i) == "android";               
+	var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";               
+	var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile"; 
+	            
+	if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) ){ 
+	      
+    }else{
+		
+		var newhost=window.location.host;
+		var newpathname=window.location.pathname;
+		var newhref="http://m.daohegroup.cn"+newpathname;
+	    window.location.href=newhref;
+		 //window.location.replace(window.location.host+"/m"+window.location.pathname);  
+		//alert(newhref);        
+	}            
+}             
+browserRedirect();          
+  
+</script>
+</head>
+<!--新版头部-->
+<body>
+<div class="headerBg index_headBg"></div>
+<div class="header index_head  ">
+  <div class="logo"><a href="http://www.daohegroup.cn"><img src="{siteurl($siteid)}/images/logo.png" width="313" height="45"  alt=""/></a></div>
+  <div class="headNav1">
+    <ul class="clearfix">
+      {pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+      <li class="headNavLi1 {if $catid==0} current {/if}"><a href="{siteurl($siteid)}" title="" class="headNavName1">首&nbsp;&nbsp;&nbsp;&nbsp;页</a><i class="arrow"></i></li>
+      {php $rd=1;}
+    
+      {loop $data $r}
+      <li class="headNavLi1 headNavLi1on {if $r[catid]==$catid} current {/if}">
+      <a href="{$r[url]}"  title="" class="headNavName1">{$r[catname]}</a> 
+      <!--子栏--> 
+      {pc:content action="category" catid="$r[catid]" num="15" siteid="$siteid" order="listorder ASC"}
+      {php $fdc=1;}
+      {php $vd=1;}
+      
+      <div class="headNav2">
+          <div class="headNavTab">
+               <ul class="tabHover" id="myTab{$rd}">
+                {loop $data $v}
+                {if $v[catid]==43}
+				 <li class="{if $fdc==1}current headNavlion {/if}headNavLi2 "><a href="{$v[url]}" title="" class="headNavName2">{$v[catname]}</a></li>
+				   {else}
+                <li class="{if $fdc==1}current headNavlion {/if}headNavLi2 "><a href="{$r[url]}#num{$fdc}" title="" class="headNavName2">{$v[catname]}</a></li>
+                {/if}
+				   {php $fdc++;}
+                {/loop}
+                </ul>
+            </div>
+            <div class="headNavAbout" id="myTab{$rd}_con"> 
+            {loop $data $s}
+            {if $s[catid]==43}
+				<div class="J-tab" {if $vd==1}style="display:block;"{/if}>
+					<div class="headNavPic"><img src="{$s[image]}" width="190" height="105" alt=""/></div>
+					<div class="headNavWords">   <p>实现覆盖全生命周期、内涵丰富、结构合理的生态健康服务业体系</p> </div>
+				</div>
+
+				{else}
+              <div class="J-tab" {if $vd==1}style="display:block;"{/if}>
+                <div class="headNavPic"><img src="{$s[image]}" width="190" height="105" alt=""/></div>
+                <div class="headNavWords">   <p>{$s[description]}</p> </div>
+              </div>
+
+
+               {/if}
+				{$vd++}
+              {/loop}
+          
+              </div>
+        </div>
+        {/pc} 
+        <!--子栏--> 
+        <i class="arrow"></i>
+        </li>
+        {$rd++}
+       
+        {/loop}
+      </ul>
+      {/pc}
+      {php echo runhook('glogal_menu')}
+    </ul>
+  </div>
+  <div class="t_webMap"> <a href="javascript:void(0);" title="" class="fast">快速导航<i class="arrow"></i></a>
+    <div class="fastBoxW">
+      <div class="fastBox"> {pc:content action="category" catid="0" num="10" siteid="$siteid" order="listorder ASC"}
+        
+        {php $mapno=1;}
+        {loop $data $r}
+        <div class="fastList {if $mapno==1}intoList{elseif $mapno==2}zixunList{elseif $mapno==3}yewuList{elseif $mapno==4}downloadList{/if}">
+          <h2><a href="{$r[url]}" title="">{$r[catname]}</a></h2>
+          {pc:content action="category" catid="$r[catid]" num="15" siteid="$siteid" order="listorder ASC"}
+          <div class="fastNav1">
+            <ul>
+              {loop $data $v}
+                {if $v[catid]==43}
+                <li class="fastNavLi1"><a href="{$v[url]}" title="" class="headNavName2">{$v[catname]}</a></li>
+                {else}
+                <li class="fastNavLi1"><a href="{$r[url]}#num{$n}" title="" class="fastNavName1">{$v[catname]}</a></li>
+                {/if}
+
+
+              {/loop}
+            </ul>
+          </div>
+          {/pc} </div>
+       
+        {$mapno++}
+        {/loop}
+        {/pc} </div>
+    </div>
+  </div>
+  <form method="GET" action="/index.php?">
+    <div class="headSearch">
+       <input type="hidden" name="m" value="search"/>
+      <input type="hidden" name="c" value="index"/>
+      <input type="hidden" name="a" value="init"/>
+      <input type="hidden" name="typeid" value="1" id="typeid"/>
+      <input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+      
+     
+      <input type="text" value="" name="q" placeholder="Search" class="searchTxt"/>
+      <input type="submit" value="" class="searchBtn"/>
+      
+      
+      
+    </div>
+  </form>
+</div>
